@@ -42,6 +42,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QVariantMap>
+#include <QtGui/QOpenGLContext>
 
 #include <QtQml/QJSValue>
 
@@ -58,7 +59,7 @@ public:
 
 private:
     int m_maxBlurSamples = 0;
-    bool m_coreProfile;
+    bool m_coreProfile = false;
 };
 
 QT_END_NAMESPACE

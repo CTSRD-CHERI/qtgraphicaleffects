@@ -60,8 +60,12 @@
 #endif
 
 QGfxShaderBuilder::QGfxShaderBuilder()
-    : m_coreProfile(false)
 {
+#if !QT_CONFIG(opengl)
+    qWarning() << "Qt was compiled without openGL support, most effects will not work!";
+    m_maxBlurSamples = 8; // minimum number of varyings in the ES 2.0 spec.
+#else
+
     // The following code makes the assumption that an OpenGL context the GUI
     // thread will get the same capabilities as the render thread's OpenGL
     // context. Not 100% accurate, but it works...
@@ -102,6 +106,7 @@ QGfxShaderBuilder::QGfxShaderBuilder()
         qDebug() << "failed to acquire GL context to resolve capabilities, using defaults..";
         m_maxBlurSamples = 8; // minimum number of varyings in the ES 2.0 spec.
     }
+#endif
 }
 
 /*
